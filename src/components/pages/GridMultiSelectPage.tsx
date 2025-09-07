@@ -53,7 +53,6 @@ export default function GridMultiSelectPage({
   onOptionSelect,
   onProceed,
 }: GridMultiSelectPageProps) {
-  const hasSelection = selectedOptions.length > 0;
   const isNoneSelected = selectedOptions.includes("None of the above");
 
   return (

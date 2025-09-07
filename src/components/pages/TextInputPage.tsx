@@ -2,12 +2,13 @@
 
 import { User } from "lucide-react";
 import BasePage from "./BasePage";
-import { FormStep } from "@/types";
+import { FormStep, FormDataRecord } from "@/types";
+import { UseFormRegister, FieldErrors } from "react-hook-form";
 
 interface TextInputPageProps {
   stepData: FormStep;
-  register: any;
-  formErrors?: any;
+  register: UseFormRegister<FormDataRecord>;
+  formErrors?: FieldErrors<FormDataRecord>;
   inputType?: "text";
   placeholder?: string;
 }
@@ -52,13 +53,13 @@ export default function TextInputPage({
       <div className="max-w-sm sm:max-w-md mx-auto">
         <input
           type={inputType}
-          {...register(stepData.id)}
+          {...register(stepData.id as keyof FormDataRecord)}
           className="w-full p-3 sm:p-4 text-center text-base sm:text-lg text-choice border-2 border-gray-200 rounded-lg sm:rounded-xl focus:border-pink-500 focus:outline-none focus:ring-2 focus:ring-pink-200 placeholder:text-choice-secondary"
           placeholder={placeholder}
         />
-        {formErrors?.[stepData.id] && (
+        {formErrors?.[stepData.id as keyof FormDataRecord] && (
           <p className="text-red-500 text-xs sm:text-sm mt-2 text-center">
-            {formErrors[stepData.id].message as string}
+            {formErrors[stepData.id as keyof FormDataRecord]?.message as string}
           </p>
         )}
       </div>

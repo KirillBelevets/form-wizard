@@ -1,5 +1,27 @@
 import { z } from "zod";
-import { FormStep } from "@/types";
+import { FormStep, FormDataRecord } from "@/types";
+
+// Complete form schema that matches FormDataRecord
+export const formSchema = z.object({
+  datetime: z.string().optional(),
+  gender: z.string().optional(),
+  dating_experience: z.string().optional(),
+  goals: z.array(z.string()).optional(),
+  personality: z.array(z.string()).optional(),
+  interests: z.array(z.string()).optional(),
+  topics: z.array(z.string()).optional(),
+  lifestyle: z.string().optional(),
+  hair_color: z.string().optional(),
+  age_preference: z.string().optional(),
+  age: z.string().optional(),
+  location: z.string().optional(),
+  traffic_source: z.string().optional(),
+  name: z.string().optional(),
+  email: z.string().optional(),
+  utm_campaign: z.string().optional(),
+  utm_content: z.string().optional(),
+  utm_source: z.string().optional(),
+}) satisfies z.ZodType<FormDataRecord>;
 
 // Validation schemas for each step
 export const stepSchemas = {

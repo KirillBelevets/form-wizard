@@ -1,9 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import {
   Calendar,
-  Check,
   Clock,
   Heart,
   MapPin,
@@ -13,13 +11,14 @@ import {
 } from "lucide-react";
 import { FaCircle } from "react-icons/fa";
 import BasePage from "./BasePage";
-import { FormStep } from "@/types";
+import { FormStep, FormError, FormDataRecord } from "@/types";
+import { FieldErrors } from "react-hook-form";
 
 interface SingleChoicePageProps {
   stepData: FormStep;
   selectedOptions: string[];
   onOptionSelect: (option: string) => void;
-  formErrors?: any;
+  formErrors?: FieldErrors<FormDataRecord>;
 }
 
 const getTemplateIcon = (template: string) => {
@@ -85,7 +84,7 @@ export default function SingleChoicePage({
         {stepData.id === "age" && formErrors?.age && (
           <div className="mt-4 p-4 bg-red-50 border border-red-200 rounded-xl">
             <p className="text-red-600 text-sm font-medium">
-              {formErrors.age?.message || "Invalid age"}
+              {(formErrors.age as FormError)?.message || "Invalid age"}
             </p>
           </div>
         )}
@@ -93,7 +92,7 @@ export default function SingleChoicePage({
 
       {/* Card-based options for single-choice pages */}
       <div className="space-y-3 max-w-md mx-auto">
-        {stepData.options?.map((option, index) => {
+        {stepData.options?.map((option) => {
           const isSelected = selectedOptions.includes(option);
 
           return (

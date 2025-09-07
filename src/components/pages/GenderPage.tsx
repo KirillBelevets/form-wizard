@@ -2,7 +2,6 @@
 
 import BasePage from "./BasePage";
 import { FormStep } from "@/types";
-import { Check } from "lucide-react";
 import { FaMars, FaVenus } from "react-icons/fa";
 
 interface GenderPageProps {

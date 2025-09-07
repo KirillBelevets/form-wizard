@@ -1,3 +1,4 @@
+import { SurveyData } from "@/types";
 import { MongoClient, Db, ObjectId } from "mongodb";
 
 if (!process.env.MONGODB_URI) {
@@ -35,7 +36,7 @@ export async function getDatabase(): Promise<Db> {
   return client.db("form-wizard");
 }
 
-export async function saveSurvey(surveyData: any) {
+export async function saveSurvey(surveyData: SurveyData) {
   const db = await getDatabase();
   const collection = db.collection("surveys");
 

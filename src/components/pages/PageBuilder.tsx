@@ -1,6 +1,7 @@
 "use client";
 
-import { FormStep } from "@/types";
+import { FormStep, FormDataRecord } from "@/types";
+import { UseFormRegister, FieldErrors } from "react-hook-form";
 import InfoPage from "./InfoPage";
 import SingleChoicePage from "./SingleChoicePage";
 import MultiSelectPage from "./MultiSelectPage";
@@ -18,8 +19,8 @@ interface PageBuilderProps {
   onOptionSelect: (option: string) => void;
   onCompactMultiSelect?: (option: string) => void;
   onProceed?: () => void;
-  register?: any;
-  formErrors?: any;
+  register: UseFormRegister<FormDataRecord>;
+  formErrors?: FieldErrors<FormDataRecord>;
   ageError?: string;
   validateEmail?: (email: string) => boolean;
 }

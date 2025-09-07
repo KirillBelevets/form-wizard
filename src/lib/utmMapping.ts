@@ -1,3 +1,5 @@
+import { SurveyData } from "@/types";
+
 // UTM parameter mapping based on traffic source selection
 export interface UTMParameters {
   utm_source: string;
@@ -76,9 +78,9 @@ export const getUTMParameters = (trafficSource: string): UTMParameters => {
 
 // Helper function to update form data with UTM parameters
 export const updateFormDataWithUTM = (
-  formData: any,
+  formData: Partial<SurveyData>,
   trafficSource: string
-): any => {
+): Partial<SurveyData> => {
   const utmParams = getUTMParameters(trafficSource);
 
   return {

@@ -5,16 +5,6 @@ export async function submitSurvey(
   data: SurveyData
 ): Promise<{ success: boolean; message: string }> {
   try {
-    // Option 1: Use Formspree or similar service
-    // const response = await fetch('https://formspree.io/f/YOUR_FORM_ID', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body: JSON.stringify(data),
-    // });
-
-    // Option 2: Use Netlify Forms (if deploying to Netlify)
     const formData = new URLSearchParams();
     formData.append("form-name", "survey");
     formData.append("datetime", data.datetime);
@@ -29,7 +19,7 @@ export async function submitSurvey(
     formData.append("age", data.age);
     formData.append("location", data.location);
     formData.append("traffic_source", data.traffic_source);
-    formData.append("name", data.name);
+    formData.append("name", data.name || "");
     formData.append("email", data.email);
     formData.append("utm_campaign", data.utm_campaign || "");
     formData.append("utm_content", data.utm_content || "");

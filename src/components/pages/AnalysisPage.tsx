@@ -74,7 +74,7 @@ export default function AnalysisPage({
     }, 800);
 
     return () => clearInterval(interval);
-  }, [onProceed, isMounted]);
+  }, [onProceed, isMounted, analysisSteps.length]);
 
   // Show loading state during hydration
   if (!isMounted) {
@@ -108,7 +108,6 @@ export default function AnalysisPage({
             const Icon = step.icon;
             const isActive = index === currentStep;
             const isCompleted = index < currentStep;
-            const isPending = index > currentStep;
 
             return (
               <div
@@ -191,7 +190,7 @@ export default function AnalysisPage({
               <Sparkles className="w-6 h-6 text-green-500 animate-bounce" />
             </div>
             <p className="text-green-700 text-sm">
-              We've found your perfect matches! Redirecting to next step...
+              We&apos;ve found your perfect matches! Redirecting to next step...
             </p>
           </div>
         )}

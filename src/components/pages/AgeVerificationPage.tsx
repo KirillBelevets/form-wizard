@@ -1,7 +1,8 @@
 "use client";
 
 import BasePage from "./BasePage";
-import { FormStep } from "@/types";
+import { FormStep, FormDataRecord } from "@/types";
+import { FieldErrors } from "react-hook-form";
 import { Calendar } from "lucide-react";
 import { FaCircle } from "react-icons/fa";
 
@@ -9,7 +10,7 @@ interface AgeVerificationPageProps {
   stepData: FormStep;
   selectedOptions: string[];
   onOptionSelect: (option: string) => void;
-  formErrors?: any;
+  formErrors?: FieldErrors<FormDataRecord>;
   ageError?: string;
 }
 

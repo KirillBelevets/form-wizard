@@ -4,8 +4,8 @@ import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useFormStore } from "@/store/formStore";
-import { formSteps, getStepSchema } from "@/lib/formSteps";
-import { SurveyData } from "@/types";
+import { formSteps, formSchema } from "@/lib/formSteps";
+import { SurveyData, DynamicFormData, FormDataRecord } from "@/types";
 import { updateFormDataWithUTM } from "@/lib/utmMapping";
 
 export function useFormLogic(onSubmit?: (data: SurveyData) => Promise<void>) {
@@ -28,7 +28,6 @@ export function useFormLogic(onSubmit?: (data: SurveyData) => Promise<void>) {
   const [ageError, setAgeError] = useState<string>("");
   const [isEmailValid, setIsEmailValid] = useState<boolean>(false);
   const currentStepData = formSteps[currentStep - 1] || formSteps[0];
-  const schema = getStepSchema(currentStepData.id);
 
   const {
     register,
@@ -39,8 +38,8 @@ export function useFormLogic(onSubmit?: (data: SurveyData) => Promise<void>) {
     setError: setFormError,
     clearErrors: clearFormErrors,
     watch,
-  } = useForm<any>({
-    resolver: zodResolver(schema),
+  } = useForm<FormDataRecord>({
+    resolver: zodResolver(formSchema),
     defaultValues: formData,
   });
 
@@ -77,10 +76,16 @@ export function useFormLogic(onSubmit?: (data: SurveyData) => Promise<void>) {
       if (existingData) {
         if (Array.isArray(existingData)) {
           setSelectedOptions(existingData as string[]);
-          setValue(currentStepData.id, existingData as string[]);
+          setValue(
+            currentStepData.id as keyof FormDataRecord,
+            existingData as string[]
+          );
         } else {
           setSelectedOptions([existingData as string]);
-          setValue(currentStepData.id, existingData as string);
+          setValue(
+            currentStepData.id as keyof FormDataRecord,
+            existingData as string
+          );
         }
       } else {
         setSelectedOptions([]);
@@ -89,7 +94,7 @@ export function useFormLogic(onSubmit?: (data: SurveyData) => Promise<void>) {
           currentStepData.type === "compact-multi-select" ||
           currentStepData.type === "grid-multi-select"
         ) {
-          setValue(currentStepData.id, []);
+          setValue(currentStepData.id as keyof FormDataRecord, []);
         }
       }
     }
@@ -99,9 +104,12 @@ export function useFormLogic(onSubmit?: (data: SurveyData) => Promise<void>) {
     formData,
     currentStepData.id,
     currentStepData.type,
+    clearErrors,
+    reset,
+    setValue,
   ]);
 
-  const handleNext = async (data: any) => {
+  const handleNext = async (data: DynamicFormData) => {
     try {
       console.log("=== HANDLE NEXT CALLED ===");
       console.log("Data:", data);
@@ -210,7 +218,7 @@ export function useFormLogic(onSubmit?: (data: SurveyData) => Promise<void>) {
         console.log("New selected options:", newOptions);
       }
       setSelectedOptions(newOptions);
-      setValue(currentStepData.id, newOptions);
+      setValue(currentStepData.id as keyof FormDataRecord, newOptions);
     } else {
       // Handle age verification first
       if (currentStepData.type === "age-verification") {
@@ -232,7 +240,7 @@ export function useFormLogic(onSubmit?: (data: SurveyData) => Promise<void>) {
 
       // Update state for all single-choice selections
       setSelectedOptions([option]);
-      setValue(currentStepData.id, option);
+      setValue(currentStepData.id as keyof FormDataRecord, option);
       console.log("Single choice selected:", option);
 
       // Auto-proceed for age verification (valid ages only)
@@ -292,7 +300,7 @@ export function useFormLogic(onSubmit?: (data: SurveyData) => Promise<void>) {
     }
 
     setSelectedOptions(newOptions);
-    setValue(currentStepData.id, newOptions);
+    setValue(currentStepData.id as keyof FormDataRecord, newOptions);
 
     // Auto-proceed only for "None of the above" selection
     if (option === "None of the above") {

@@ -3,7 +3,7 @@
 import { ChevronRight } from "lucide-react";
 import { useFormLogic } from "@/hooks/useFormLogic";
 import PageBuilder from "./pages/PageBuilder";
-import { SurveyData } from "@/types";
+import { SurveyData, FormData } from "@/types";
 
 interface FormWizardProps {
   onSubmit: (data: SurveyData) => Promise<void>;
@@ -27,7 +27,6 @@ export default function FormWizard({ onSubmit }: FormWizardProps) {
     handleNext,
     handleOptionSelect,
     handleCompactMultiSelect,
-    handlePrevious,
     watch,
   } = useFormLogic(onSubmit);
 
@@ -121,7 +120,9 @@ export default function FormWizard({ onSubmit }: FormWizardProps) {
               const isTextInputStep = currentStepData.type === "text-input";
 
               // Watch the current field value for text input
-              const currentFieldValue = watch(currentStepData.id);
+              const currentFieldValue = watch(
+                currentStepData.id as keyof FormData
+              );
 
               // Check if text input has content
               const hasTextInput =
