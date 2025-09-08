@@ -27,14 +27,6 @@ export default function AgeVerificationPage({
         <div className="w-16 h-16 sm:w-20 sm:h-20 mx-auto bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full flex items-center justify-center mb-3 sm:mb-4">
           <Calendar className="w-8 h-8 sm:w-10 sm:h-10 text-white" />
         </div>
-        <h2 className="text-xl sm:text-2xl font-bold text-gray-900 text-responsive-xl">
-          {stepData.title}
-        </h2>
-        {stepData.description && (
-          <p className="text-gray-700 mt-2 text-sm sm:text-base text-responsive-base">
-            {stepData.description}
-          </p>
-        )}
         {/* Show error for age verification */}
         {ageError && (
           <div className="mt-3 p-3 bg-red-50 border border-red-200 rounded-lg">
