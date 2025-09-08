@@ -30,7 +30,7 @@ export const useFormStore = create<FormStore>()(
     (set, get) => ({
       // State
       currentStep: 1,
-      totalSteps: 19,
+      totalSteps: 18,
       formData: initialFormData,
       isSubmitting: false,
       errors: {},
