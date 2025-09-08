@@ -51,8 +51,6 @@ export default function AnalysisPage({
   useEffect(() => {
     if (!isMounted) return;
 
-    console.log("AnalysisPage mounted, starting animation...");
-
     const interval = setInterval(() => {
       setCurrentStep((prev) => {
         if (prev < analysisSteps.length - 1) {
@@ -64,7 +62,6 @@ export default function AnalysisPage({
           if (!hasCalledOnProceed.current) {
             hasCalledOnProceed.current = true;
             setTimeout(() => {
-              console.log("AnalysisPage calling onProceed...");
               onProceed();
             }, 1500);
           }

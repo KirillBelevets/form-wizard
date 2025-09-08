@@ -34,20 +34,8 @@ export async function POST(request: NextRequest) {
     // Validate the request body
     const validatedData = surveySchema.parse(body);
 
-    // Log the request
-    console.log("Survey submission received:", {
-      timestamp: new Date().toISOString(),
-      data: validatedData,
-      userAgent: request.headers.get("user-agent"),
-      ip:
-        request.headers.get("x-forwarded-for") ||
-        request.headers.get("x-real-ip"),
-    });
-
     // Save to MongoDB
     const result = await saveSurvey(validatedData);
-
-    console.log("Survey saved to database:", result.insertedId);
 
     return NextResponse.json(
       {

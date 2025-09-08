@@ -14,8 +14,6 @@ export default function FormWizardClient() {
       setIsSubmitting(true);
       setSubmitError(null);
 
-      console.log("Submitting form data:", data);
-
       // Prepare data for API
       const submissionData = {
         ...data,
@@ -24,8 +22,6 @@ export default function FormWizardClient() {
         utm_content: data.utm_content || "",
         utm_source: data.utm_source || "",
       };
-
-      console.log("Prepared submission data:", submissionData);
 
       const response = await fetch("/api/survey", {
         method: "POST",
@@ -36,7 +32,6 @@ export default function FormWizardClient() {
       });
 
       const result = await response.json();
-      console.log("API Response:", { status: response.status, result });
 
       if (!response.ok) {
         throw new Error(
@@ -44,7 +39,6 @@ export default function FormWizardClient() {
         );
       }
 
-      console.log("Survey submitted successfully:", result);
       setSubmitSuccess(true);
 
       // Optional: Redirect to success page or show success message

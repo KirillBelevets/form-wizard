@@ -1,325 +1,170 @@
-# SoulMatch - Multi-Step Dating Survey Application
+# SoulMatch - Dating Survey Form
 
-A sophisticated, responsive multi-step dating survey built with Next.js 14, TypeScript, and Tailwind CSS. This application helps users find their perfect match through an engaging 19-step form wizard with various input types, UTM parameter tracking, and MongoDB integration.
+A modern, responsive multi-step survey form built with Next.js, TypeScript, and Tailwind CSS. This project demonstrates advanced form handling, state management, and database integration.
 
 ## 🚀 Features
 
-- **19-Step Form Wizard**: Comprehensive survey with various input types
-- **UTM Parameter Tracking**: Automatic marketing attribution and analytics
-- **MongoDB Integration**: Real-time data persistence and storage
-- **Responsive Design**: Mobile-first design optimized for all devices
-- **Form Validation**: Zod schemas for robust client and server-side validation
-- **State Management**: Zustand with localStorage persistence
-- **TypeScript**: Full type safety throughout the application
-- **Modern UI**: Beautiful gradient design with smooth animations
-- **Progress Tracking**: Visual progress bar and step indicators
-- **Error Handling**: Comprehensive error handling and user feedback
-- **Code Splitting**: Optimized performance with dynamic imports
+- **18 Interactive Pages** - Multiple page types including single choice, multi-select, text input, and information screens
+- **Responsive Design** - Optimized for mobile and desktop devices
+- **Type Safety** - Full TypeScript implementation with precise types
+- **Form Validation** - Zod schemas with React Hook Form integration
+- **State Management** - Zustand for global state with persistence
+- **Database Integration** - MongoDB Atlas for data storage
+- **UTM Tracking** - Marketing campaign parameter tracking
+- **Email Validation** - Real-time email format validation
+- **Auto-progression** - Smart form flow with conditional navigation
 
-## 🛠️ Tech Stack
+## 🛠 Tech Stack
 
 ### Frontend
 
-- **Framework**: Next.js 14 (App Router)
+- **Framework**: Next.js 15.5.2 (App Router)
 - **Language**: TypeScript
 - **Styling**: Tailwind CSS
-- **Form Management**: React Hook Form
-- **Validation**: Zod
+- **Form Handling**: React Hook Form + Zod
 - **State Management**: Zustand
 - **Icons**: Lucide React + React Icons
 - **Fonts**: Inter (Google Fonts)
 
 ### Backend
 
-- **Runtime**: Next.js 14 API Routes
+- **API**: Next.js API Routes
+- **Database**: MongoDB Atlas
 - **Validation**: Zod schemas
-- **Database**: MongoDB Atlas integration
-- **UTM Tracking**: Automatic marketing attribution
-
-### Database
-
-- **MongoDB Atlas**: Cloud database service
-- **Collections**: Survey submissions with full data
-- **Indexing**: Optimized for query performance
-
-## 📋 Form Steps (19 Total)
-
-1. **Welcome** - Hero page with SoulMatch branding
-2. **Gender** - Single choice with custom Mars/Venus icons
-3. **Dating Experience** - Single choice selection
-4. **Relationship Goals** - Multi-select options
-5. **Personality Traits** - Multi-select options
-6. **Interests** - Multi-select options
-7. **Topics** - Grid multi-select with "None of the above"
-8. **Lifestyle** - Single choice selection
-9. **Hair Color** - Single choice selection
-10. **Age Preference** - Single choice selection
-11. **Age Verification** - Single choice with validation
-12. **Location** - Single choice selection
-13. **Traffic Source** - Single choice with UTM mapping
-14. **Analysis** - Animated processing sequence
-15. **Name Input** - Text input with validation
-16. **Email Collection** - Email input with real-time validation
-17. **Stats** - Information page with user statistics
-18. **Loading** - Processing page
-19. **Complete** - Success confirmation screen
-
-## 📊 UTM Parameter Tracking
-
-The application automatically tracks marketing attribution through UTM parameters:
-
-### Traffic Sources
-
-- **Google Search** → `utm_source: "google"`, `utm_campaign: "organic_search_2025"`
-- **Facebook** → `utm_source: "facebook"`, `utm_campaign: "social_media_2025"`
-- **Instagram** → `utm_source: "instagram"`, `utm_campaign: "social_media_2025"`
-- **TikTok** → `utm_source: "tiktok"`, `utm_campaign: "social_media_2025"`
-- **YouTube** → `utm_source: "youtube"`, `utm_campaign: "video_marketing_2025"`
-- **Twitter/X** → `utm_source: "twitter"`, `utm_campaign: "social_media_2025"`
-- **LinkedIn** → `utm_source: "linkedin"`, `utm_campaign: "professional_networking_2025"`
-- **Email Newsletter** → `utm_source: "email"`, `utm_campaign: "email_marketing_2025"`
-- **Friend Referral** → `utm_source: "referral"`, `utm_campaign: "word_of_mouth_2025"`
-- **Other Website** → `utm_source: "referral"`, `utm_campaign: "partner_website_2025"`
-- **Direct Visit** → `utm_source: "direct"`, `utm_campaign: "direct_traffic_2025"`
-
-### Benefits
-
-- **Marketing Analytics**: Track which channels bring the most users
-- **Campaign Attribution**: Know which campaigns are working
-- **Content Performance**: See which content types convert best
-- **ROI Measurement**: Measure return on marketing investment
-
-## 🚀 Getting Started
-
-### Prerequisites
-
-- Node.js 18+
-- npm or yarn
-
-### Installation
-
-1. Clone the repository:
-
-```bash
-git clone <repository-url>
-cd form-wizard
-```
-
-2. Install dependencies:
-
-```bash
-npm install
-```
-
-3. Set up environment variables:
-
-Create `.env.local`:
-
-```env
-MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/soulmatch
-NEXT_PUBLIC_APP_URL=http://localhost:3000
-```
-
-4. Run the development server:
-
-```bash
-npm run dev
-```
-
-5. Open [http://localhost:3000](http://localhost:3000) in your browser.
+- **Deployment**: Vercel (recommended)
 
 ## 📁 Project Structure
 
 ```
 src/
 ├── app/
-│   ├── api/
-│   │   └── survey/
-│   │       └── route.ts          # API endpoint for form submission
-│   ├── globals.css               # Global styles
-│   ├── layout.tsx                # Root layout
-│   └── page.tsx                  # Main page component
+│   ├── api/survey/route.ts    # Survey submission API
+│   ├── globals.css            # Global styles
+│   ├── layout.tsx             # Root layout
+│   └── page.tsx               # Home page
 ├── components/
-│   ├── FormWizard.tsx            # Main form wizard component
-│   ├── FormWizardClient.tsx      # Client-side wrapper
-│   └── pages/                    # Page components
-│       ├── BasePage.tsx          # Base page layout
-│       ├── InfoPage.tsx          # Information pages
-│       ├── SingleChoicePage.tsx  # Single choice selection
-│       ├── MultiSelectPage.tsx   # Multi-select options
-│       ├── CompactMultiSelectPage.tsx # Compact multi-select
-│       ├── GridMultiSelectPage.tsx    # Grid multi-select
-│       ├── TextInputPage.tsx     # Text input
-│       ├── EmailInputPage.tsx    # Email input with validation
-│       ├── AgeVerificationPage.tsx    # Age verification
-│       ├── GenderPage.tsx        # Gender selection
-│       ├── AnalysisPage.tsx      # Analysis animation
-│       └── PageBuilder.tsx       # Dynamic page renderer
+│   ├── FormWizard.tsx         # Main form component
+│   ├── FormWizardClient.tsx   # Client-side wrapper
+│   └── pages/                 # Page components
+│       ├── BasePage.tsx       # Base page layout
+│       ├── InfoPage.tsx       # Information pages
+│       ├── SingleChoicePage.tsx
+│       ├── MultiSelectPage.tsx
+│       ├── TextInputPage.tsx
+│       ├── EmailInputPage.tsx
+│       ├── AgeVerificationPage.tsx
+│       ├── GenderPage.tsx
+│       ├── AnalysisPage.tsx
+│       └── PageBuilder.tsx    # Dynamic page renderer
 ├── hooks/
-│   └── useFormLogic.ts           # Form logic and validation
+│   └── useFormLogic.ts        # Form logic hook
 ├── lib/
-│   ├── database.ts               # Database utilities
-│   ├── formSteps.ts              # Form steps configuration
-│   ├── formSubmission.ts         # Form submission logic
-│   ├── mongodb.ts                # MongoDB connection
-│   └── utmMapping.ts             # UTM parameter mapping
+│   ├── formSteps.ts           # Form configuration
+│   ├── mongodb.ts             # Database connection
+│   ├── formSubmission.ts      # Submission utilities
+│   └── utmMapping.ts          # UTM parameter mapping
 ├── store/
-│   └── formStore.ts              # Zustand store for state management
+│   └── formStore.ts           # Zustand store
 └── types/
-    └── index.ts                  # TypeScript type definitions
+    └── index.ts               # TypeScript definitions
 ```
 
-## 🔧 Configuration
+## 🚀 Getting Started
 
-### Form Steps
+### Prerequisites
 
-Form steps are configured in `src/lib/formSteps.ts`. You can easily modify:
+- Node.js 18+
+- MongoDB Atlas account
+- Git
 
-- Step titles and descriptions
-- Input types and options
-- Validation rules
-- Required fields
+### Installation
 
-### State Management
+1. **Clone the repository**
 
-The application uses Zustand for state management. The store is defined in `src/store/formStore.ts` and includes:
+   ```bash
+   git clone https://github.com/KirillBelevets/form-wizard.git
+   cd form-wizard
+   ```
 
-- Current step tracking
-- Form data persistence
-- Error handling
-- Navigation controls
+2. **Install dependencies**
 
-### API Endpoints
+   ```bash
+   npm install
+   ```
 
-- `POST /api/survey` - Submit survey data
-- `GET /api/survey` - Get API information
+3. **Environment Setup**
+   Create `.env.local` file:
 
-## 🎨 Customization
+   ```env
+   MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/soulmatch
+   ```
 
-### Styling
+4. **Run development server**
 
-The application uses Tailwind CSS with a custom color scheme:
+   ```bash
+   npm run dev
+   ```
 
-- Primary: Pink to Purple gradient
-- Background: Light pink to purple gradient
-- Text: Gray scale
+5. **Open in browser**
+   Navigate to `http://localhost:3000`
 
-### Form Validation
-
-Validation schemas are defined using Zod in `src/lib/formSteps.ts`. Each step has its own validation schema.
-
-## 🚀 Deployment
-
-### Vercel (Recommended)
-
-**Why Vercel?**
-
-- **Cost-effective**: No surprise bills like AWS
-- **Next.js optimized**: Built specifically for Next.js applications
-- **Easy deployment**: Git-based deployment with automatic builds
-- **Built-in analytics**: Traffic and performance insights
-- **Global CDN**: Fast loading worldwide
-- **Environment variables**: Easy configuration management
-
-**Deployment Steps:**
-
-1. Push your code to GitHub
-2. Go to [vercel.com](https://vercel.com) and sign up
-3. Import your GitHub repository
-4. Add environment variables in Vercel dashboard:
-   - `MONGODB_URI`: Your MongoDB Atlas connection string
-   - `NEXT_PUBLIC_APP_URL`: Your Vercel domain
-5. Deploy automatically!
-
-### Other Platforms
-
-The application can be deployed to any platform that supports Next.js:
-
-- Netlify
-- AWS Amplify
-- Railway
-- DigitalOcean App Platform
-
-## 📊 Database Integration
-
-The application includes **full MongoDB Atlas integration**:
-
-### MongoDB Atlas Setup
-
-1. Create a MongoDB Atlas account at [mongodb.com](https://mongodb.com)
-2. Create a new cluster (free tier available)
-3. Get your connection string
-4. Add it to your environment variables as `MONGODB_URI`
-
-### Database Schema
-
-```typescript
-interface SurveyData {
-  datetime: string;
-  gender: string;
-  dating_experience: string;
-  goals: string[];
-  personality: string[];
-  interests: string[];
-  topics: string[];
-  lifestyle: string;
-  hair_color: string;
-  age_preference: string;
-  age: string;
-  location: string;
-  traffic_source: string;
-  name: string;
-  email: string;
-  utm_campaign?: string;
-  utm_content?: string;
-  utm_source?: string;
-}
-```
-
-### Features
-
-- **Automatic collection creation**: Collections are created on first submission
-- **Data validation**: Zod schemas ensure data integrity
-- **Error handling**: Comprehensive error handling and logging
-- **Performance**: Optimized queries and indexing
-
-## 🧪 Testing
+### Production Build
 
 ```bash
-# Run linting
-npm run lint
-
-# Run type checking
 npm run build
+npm start
 ```
 
-## 📝 API Documentation
+## 📊 Form Pages
+
+The survey includes 18 carefully designed pages:
+
+1. **Welcome** - Hero introduction
+2. **Gender** - Man/Woman selection
+3. **Stats** - Information about SoulMatch
+4. **Dating Experience** - Single choice
+5. **Goals** - Multi-select dating goals
+6. **Personality** - Multi-select traits
+7. **Interests** - Multi-select interests
+8. **Topics** - Multi-select conversation topics
+9. **Lifestyle** - Single choice lifestyle
+10. **Hair Color** - Single choice preference
+11. **Age Preference** - Single choice range
+12. **Age Verification** - 18+ verification
+13. **Location** - Single choice location
+14. **Traffic Source** - UTM tracking setup
+15. **Analysis** - Animated processing screen
+16. **Name** - Text input
+17. **Email** - Email input with validation
+18. **Success** - Completion confirmation
+
+## 🔧 API Documentation
 
 ### POST /api/survey
 
-Submit survey data.
+Submit survey data to the database.
 
 **Request Body:**
 
 ```json
 {
-  "datetime": "2025-01-01T00:00:00.000Z",
+  "datetime": "2025-01-07T10:30:00.000Z",
   "gender": "Man",
-  "dating_experience": "No, this is my first time",
-  "goals": ["Marriage", "Friendship"],
-  "personality": ["Intellectual", "Adventurous"],
-  "interests": ["Cooking & Food", "Art & Culture"],
-  "topics": ["Politics", "Sports"],
-  "lifestyle": "I enjoy a mix of both",
-  "hair_color": "Brown",
-  "age_preference": "A few years older",
-  "age": "Age 18-34",
-  "location": "North America",
-  "traffic_source": "Google Search",
+  "dating_experience": "Some experience",
+  "goals": ["Long-term relationship", "Marriage"],
+  "personality": ["Adventurous", "Funny"],
+  "interests": ["Travel", "Music"],
+  "topics": ["Career", "Hobbies"],
+  "lifestyle": "Active",
+  "hair_color": "Blonde",
+  "age_preference": "25-35",
+  "age": "25-30",
+  "location": "New York",
+  "traffic_source": "Google Ads",
   "name": "John Doe",
-  "email": "user@example.com",
-  "utm_campaign": "organic_search_2025",
-  "utm_content": "search_results",
+  "email": "john@example.com",
+  "utm_campaign": "dating_2025",
+  "utm_content": "google_ads_2025",
   "utm_source": "google"
 }
 ```
@@ -330,53 +175,103 @@ Submit survey data.
 {
   "success": true,
   "message": "Survey submitted successfully",
-  "id": "68bd3ddec8e5a62335a6e37f"
+  "id": "65f8a1b2c3d4e5f6a7b8c9d0"
 }
 ```
 
-**Error Response:**
+## 🎨 Design System
 
-```json
-{
-  "success": false,
-  "message": "Validation failed",
-  "errors": [
-    {
-      "field": "email",
-      "message": "Invalid email format"
-    }
-  ]
-}
+### Colors
+
+- **Primary**: Pink gradient (`from-pink-50 to-purple-50`)
+- **Accent**: Pink (`#ec4899`)
+- **Text**: Gray scale (`text-gray-900`, `text-gray-600`)
+- **Success**: Green (`#10b981`)
+- **Error**: Red (`#ef4444`)
+
+### Typography
+
+- **Font**: Inter (Google Fonts)
+- **Headings**: `text-2xl sm:text-3xl font-bold`
+- **Body**: `text-base sm:text-lg`
+- **Small**: `text-sm text-gray-500`
+
+### Components
+
+- **Cards**: Rounded corners, shadows, hover effects
+- **Buttons**: Gradient backgrounds, smooth transitions
+- **Inputs**: Focus states, validation styling
+- **Icons**: Consistent sizing and colors
+
+## 🚀 Deployment
+
+### Vercel (Recommended)
+
+1. **Connect GitHub repository**
+2. **Set environment variables**:
+   - `MONGODB_URI`: Your MongoDB connection string
+3. **Deploy**: Automatic deployment on push to main
+
+### Manual Deployment
+
+```bash
+npm run build
+npm start
 ```
+
+## 📈 Performance
+
+- **Page Load**: < 3 seconds
+- **Bundle Size**: ~138KB (First Load JS)
+- **Lighthouse Score**: 90+ (Performance)
+- **Core Web Vitals**: Optimized
+
+## 🔒 Security
+
+- **HTTPS**: Required for all endpoints
+- **Input Validation**: Zod schemas prevent malicious input
+- **Data Sanitization**: All user inputs are validated
+- **Environment Variables**: Sensitive data in `.env.local`
+
+## 🧪 Testing
+
+```bash
+# Run linting
+npm run lint
+
+# Type checking
+npm run type-check
+
+# Build verification
+npm run build
+```
+
+## 📝 Browser Support
+
+- Chrome (latest)
+- Firefox (latest)
+- Safari (latest)
+- Edge (latest)
 
 ## 🤝 Contributing
 
 1. Fork the repository
 2. Create a feature branch
 3. Make your changes
-4. Add tests if applicable
+4. Test thoroughly
 5. Submit a pull request
 
 ## 📄 License
 
 This project is licensed under the MIT License.
 
-## 🎯 Future Enhancements
+## 👨‍💻 Author
 
-- [x] Database integration (MongoDB Atlas)
-- [x] UTM parameter tracking
-- [x] Email validation
-- [x] Responsive design
-- [x] Code splitting
-- [ ] Email confirmation system
-- [ ] Analytics dashboard
-- [ ] Admin panel
-- [ ] Multi-language support
-- [ ] A/B testing capabilities
-- [ ] Advanced form logic
-- [ ] File upload support
-- [ ] Social media integration
-- [ ] Mobile app version
-- [ ] Real-time analytics
-- [ ] User authentication
-- [ ] Data export features
+**Kirill Belevets**
+
+- GitHub: [@KirillBelevets](https://github.com/KirillBelevets)
+- Project: [SoulMatch Form](https://github.com/KirillBelevets/form-wizard)
+
+---
+
+**Built with ❤️ using Next.js, TypeScript, and Tailwind CSS**

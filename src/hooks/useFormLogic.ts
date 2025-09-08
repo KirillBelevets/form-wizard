@@ -111,15 +111,6 @@ export function useFormLogic(onSubmit?: (data: SurveyData) => Promise<void>) {
 
   const handleNext = async (data: DynamicFormData) => {
     try {
-      console.log("=== HANDLE NEXT CALLED ===");
-      console.log("Data:", data);
-      console.log("Current step number:", currentStep);
-      console.log("Current step ID:", currentStepData.id);
-      console.log("Current step type:", currentStepData.type);
-      console.log("Selected options:", selectedOptions);
-      console.log("Total steps:", totalSteps);
-      console.log("=========================");
-
       // Special handling for different step types
       if (
         currentStepData.type === "multi-select" ||
@@ -127,10 +118,6 @@ export function useFormLogic(onSubmit?: (data: SurveyData) => Promise<void>) {
         currentStepData.type === "grid-multi-select"
       ) {
         data[currentStepData.id] = selectedOptions;
-        console.log("Multi-select data set:", {
-          fieldName: currentStepData.id,
-          value: selectedOptions,
-        });
       } else if (
         currentStepData.type === "single-choice" ||
         currentStepData.type === "age-verification" ||
@@ -139,10 +126,6 @@ export function useFormLogic(onSubmit?: (data: SurveyData) => Promise<void>) {
         // Use the data passed in if available, otherwise use selectedOptions
         const value = data[currentStepData.id] || selectedOptions[0];
         data[currentStepData.id] = value;
-        console.log("Single choice data set:", {
-          fieldName: currentStepData.id,
-          value: value,
-        });
       }
 
       // Special handling for age verification step - check for under 18
@@ -158,17 +141,11 @@ export function useFormLogic(onSubmit?: (data: SurveyData) => Promise<void>) {
         return;
       }
 
-      console.log("Final data before update:", data);
-
       // Update form data with current step data
       const updatedFormData = { ...formData, ...data };
       updateFormData(data);
 
       if (currentStep === totalSteps) {
-        console.log("=== REACHED FINAL STEP ===");
-        console.log("Current step:", currentStep);
-        console.log("Total steps:", totalSteps);
-        console.log("Form data:", updatedFormData);
         setSubmitting(true);
         // Call the onSubmit function passed from parent component
         if (onSubmit) {
@@ -181,8 +158,6 @@ export function useFormLogic(onSubmit?: (data: SurveyData) => Promise<void>) {
           }
         }
       } else {
-        console.log("=== MOVING TO NEXT STEP ===");
-        console.log("From step", currentStep, "to", currentStep + 1);
         nextStep();
       }
     } catch (error) {
@@ -192,14 +167,6 @@ export function useFormLogic(onSubmit?: (data: SurveyData) => Promise<void>) {
   };
 
   const handleOptionSelect = (option: string) => {
-    console.log("=== OPTION SELECTED ===");
-    console.log("Option:", option);
-    console.log("Current step ID:", currentStepData.id);
-    console.log("Current step type:", currentStepData.type);
-    console.log("Current step template:", currentStepData.template);
-    console.log("Current selected options:", selectedOptions);
-    console.log("Is multi-select?", currentStepData.type === "multi-select");
-
     if (
       currentStepData.type === "multi-select" ||
       currentStepData.type === "grid-multi-select"
@@ -207,7 +174,6 @@ export function useFormLogic(onSubmit?: (data: SurveyData) => Promise<void>) {
       let newOptions: string[];
       if (option === "None of the above") {
         newOptions = ["None of the above"];
-        console.log("Set to None of the above");
       } else {
         const filtered = selectedOptions.filter(
           (item) => item !== "None of the above"
@@ -215,7 +181,6 @@ export function useFormLogic(onSubmit?: (data: SurveyData) => Promise<void>) {
         newOptions = filtered.includes(option)
           ? filtered.filter((item) => item !== option)
           : [...filtered, option];
-        console.log("New selected options:", newOptions);
       }
       setSelectedOptions(newOptions);
       setValue(currentStepData.id as keyof FormDataRecord, newOptions);
@@ -241,11 +206,9 @@ export function useFormLogic(onSubmit?: (data: SurveyData) => Promise<void>) {
       // Update state for all single-choice selections
       setSelectedOptions([option]);
       setValue(currentStepData.id as keyof FormDataRecord, option);
-      console.log("Single choice selected:", option);
 
       // Auto-proceed for age verification (valid ages only)
       if (currentStepData.type === "age-verification") {
-        console.log("Age verification: Proceeding with valid age:", option);
         setTimeout(() => {
           handleNext({ [currentStepData.id]: option });
         }, 500);
@@ -254,9 +217,7 @@ export function useFormLogic(onSubmit?: (data: SurveyData) => Promise<void>) {
 
       // Special handling for traffic source - populate UTM parameters
       if (currentStepData.id === "traffic_source") {
-        console.log("Traffic source selected:", option);
         const updatedData = updateFormDataWithUTM(formData, option);
-        console.log("Updated form data with UTM parameters:", updatedData);
 
         // Update the form data with UTM parameters
         updateFormData(updatedData);
@@ -280,15 +241,9 @@ export function useFormLogic(onSubmit?: (data: SurveyData) => Promise<void>) {
   };
 
   const handleCompactMultiSelect = (option: string) => {
-    console.log("=== COMPACT MULTI-SELECT OPTION SELECTED ===");
-    console.log("Option:", option);
-    console.log("Current step ID:", currentStepData.id);
-    console.log("Current selected options:", selectedOptions);
-
     let newOptions: string[];
     if (option === "None of the above") {
       newOptions = ["None of the above"];
-      console.log("Set to None of the above");
     } else {
       const filtered = selectedOptions.filter(
         (item) => item !== "None of the above"
@@ -296,7 +251,6 @@ export function useFormLogic(onSubmit?: (data: SurveyData) => Promise<void>) {
       newOptions = filtered.includes(option)
         ? filtered.filter((item) => item !== option)
         : [...filtered, option];
-      console.log("New selected options:", newOptions);
     }
 
     setSelectedOptions(newOptions);
